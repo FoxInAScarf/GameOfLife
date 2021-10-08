@@ -1,0 +1,7 @@
+main: com.golim.veo.Main
+version: 1.0.0
+name: GameOfLife
+commands:
+  gameoflife:
+    aliases: [gol]
+    description: Conway's Game of Life implemented in Minecraft.
