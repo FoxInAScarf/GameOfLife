@@ -3,8 +3,9 @@ package com.golim.veo;
 import org.bukkit.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class Main extends JavaPlugin {
 
@@ -15,10 +16,13 @@ public class Main extends JavaPlugin {
 
     public static HashMap<Location, Boolean> cells = new HashMap<>();
 
+    public static List<Location> aliveCells = new ArrayList<>();
+
     public void onEnable() {
 
         main = this;
         this.getCommand("gameoflife").setExecutor(new GameOfLife());
+        Bukkit.getPluginManager().registerEvents(new Listeners(), this);
         iterate();
 
     }
@@ -31,9 +35,8 @@ public class Main extends JavaPlugin {
 
             if (running) {
 
-                check();
-                updateState();
-                updateCell();
+                TwoDimensional.updateCells();
+                TwoDimensional.update();
 
             }
 
@@ -41,53 +44,6 @@ public class Main extends JavaPlugin {
 
     }
 
-    private void check() {
 
-        for (Map.Entry<Location, Boolean> set : Main.cells.entrySet()) {
-
-            Location location = set.getKey();
-
-            if (!location.getBlock().getType().equals(Material.REDSTONE_BLOCK))
-                location.getBlock().setType(Material.AIR);
-            cells.put(location, location.getBlock().getType().equals(Material.REDSTONE_BLOCK) ? true : false);
-
-        }
-
-    }
-
-    private void updateState() {
-
-        for (Map.Entry<Location, Boolean> set : Main.cells.entrySet()) {
-
-            Location location = set.getKey();
-
-            int alive = 0;
-            for (int x = -1; x <= 1; x++)
-                for (int z = -1; z <= 1; z++) {
-
-                    Location nLoc = new Location(location.getWorld(), location.getX() + x, y, location.getZ() + z);
-                    if (nLoc.equals(location)) continue;
-
-                    if (nLoc.getBlock().getType().equals(Material.REDSTONE_BLOCK))
-                        alive++;
-
-                }
-
-            if (alive <= 1 || alive >= 4)
-                cells.put(location, false);
-
-            if (alive == 3)
-                cells.put(location, true);
-
-        }
-
-    }
-
-    private void updateCell() {
-
-        for (Map.Entry<Location, Boolean> set : Main.cells.entrySet())
-            set.getKey().getBlock().setType(set.getValue() ? Material.REDSTONE_BLOCK : Material.AIR);
-
-    }
 
 }
