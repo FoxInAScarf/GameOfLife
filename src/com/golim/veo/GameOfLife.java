@@ -68,7 +68,23 @@ public class GameOfLife implements CommandExecutor {
                         }
                         break;
 
-                    case "setBoundaries": //gameoflife field setBoundaries <x1> <z1> <x2> <z2>
+                    case "timerate":
+
+                        try {
+
+                            Main.y = Integer.parseInt(args[2]);
+                            sender.sendMessage(ChatColor.AQUA + "Time-rate has been set to: " + Main.y);
+
+                        }
+                        catch (Exception e) {
+
+                            e.printStackTrace();
+                            sender.sendMessage(ChatColor.RED + "ERROR! The number entered is not a number! Please try again and check for any errors!");
+
+                        }
+                        break;
+
+                    /*case "setBoundaries": //gameoflife field setBoundaries <x1> <z1> <x2> <z2>
 
                         if (args.length < 6) {
 
@@ -96,7 +112,7 @@ public class GameOfLife implements CommandExecutor {
                             sender.sendMessage(ChatColor.RED + "ERROR! One of the numbers entered is not a number! Please try again and check for any errors!");
 
                         }
-                        break;
+                        break;*/
 
                     case "clear":
 
@@ -121,7 +137,7 @@ public class GameOfLife implements CommandExecutor {
                 sender.sendMessage(Main.running ? ChatColor.DARK_GREEN + "Game of Life has been turned on!" : ChatColor.DARK_RED + "Game of Life has been turned off!");
                 break;
 
-            case "test":
+            /*case "test":
 
                 for (Map.Entry<Location, Boolean> set : Main.cells.entrySet()) {
 
@@ -136,7 +152,7 @@ public class GameOfLife implements CommandExecutor {
                     }, 10L);
 
                 }
-                break;
+                break;*/
 
             default:
 
@@ -154,7 +170,7 @@ public class GameOfLife implements CommandExecutor {
 
     }
 
-    private static void setBoundaries(int x1, int z1, int x2, int z2) {
+    /*private static void setBoundaries(int x1, int z1, int x2, int z2) {
 
         if (x1 < x2) {
 
@@ -206,6 +222,6 @@ public class GameOfLife implements CommandExecutor {
 
         }
 
-    }
+    }*/
 
 }

@@ -17,7 +17,7 @@ public class Listeners implements Listener {
                 !Main.aliveCells.contains(e.getBlock().getLocation())) {
 
             Main.aliveCells.add(e.getBlock().getLocation());
-            e.getPlayer().sendMessage(ChatColor.AQUA + "A cell has been added!");
+            //e.getPlayer().sendMessage(ChatColor.AQUA + "A cell has been added!");
 
         }
 
@@ -31,7 +31,7 @@ public class Listeners implements Listener {
                 Main.aliveCells.contains(e.getBlock().getLocation())) {
 
             Main.aliveCells.remove(Main.aliveCells.indexOf(e.getBlock().getLocation()));
-            e.getPlayer().sendMessage(ChatColor.AQUA + "A cell has been removed!");
+            //e.getPlayer().sendMessage(ChatColor.AQUA + "A cell has been removed!");
 
         }
 

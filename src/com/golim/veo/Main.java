@@ -13,8 +13,9 @@ public class Main extends JavaPlugin {
     public static World world;
     public static boolean running = false;
     private static Main main;
+    public static double timerate = 0.5;
 
-    public static HashMap<Location, Boolean> cells = new HashMap<>();
+    //public static HashMap<Location, Boolean> cells = new HashMap<>();
 
     public static List<Location> aliveCells = new ArrayList<>();
 
@@ -40,7 +41,7 @@ public class Main extends JavaPlugin {
 
             }
 
-        }, 20L, 20L);
+        }, 20L, Math.round(timerate * 20));
 
     }
 

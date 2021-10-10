@@ -1,5 +1,6 @@
 package com.golim.veo;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
@@ -14,10 +15,7 @@ public class TwoDimensional {
 
         // #1 put all dead neighbours into a new list + add currently aliveCells to new list
 
-        Iterator<Location> i1 = reference.iterator();
-        while (i1.hasNext()) {
-
-            Location c1 = i1.next();
+        for (Location c1 : Main.aliveCells) {
 
             reference.add(c1);
             for (Location c2 : getDeadNeighbours(c1))
@@ -25,7 +23,9 @@ public class TwoDimensional {
 
         }
 
-        // #2 run operation on newly created list -> add all to newAliveCells, new list
+        //Bukkit.broadcastMessage("The amount of elements in new reference list is: " + reference.size());
+
+        // #2 run operation on newly made list -> remove all cells from list that don't obey rules
 
         Iterator<Location> i2 = reference.iterator();
         while (i2.hasNext()) {
@@ -39,33 +39,30 @@ public class TwoDimensional {
                     Location nLoc = new Location(c.getWorld(), c.getX() + x, Main.y, c.getZ() + z);
                     if (nLoc.equals(c)) continue;
 
-                    if (!nLoc.getBlock().getType().equals(Material.REDSTONE_BLOCK))
+                    if (nLoc.getBlock().getType().equals(Material.REDSTONE_BLOCK))
                         alive++;
 
                 }
 
-            if (alive <= 1 || alive >= 4 && c.getBlock().getType().equals(Material.REDSTONE_BLOCK))
-                i2.remove(); // clears up reference list instead of having a new one
 
-            if (alive != 3 && !c.getBlock().getType().equals(Material.REDSTONE_BLOCK))
-                i2.remove(); // clears up reference list instead of having a new one
+            if (alive <= 1 || alive >= 4 || (!c.getBlock().getType().equals(Material.REDSTONE_BLOCK) && alive != 3)) {
+
+                i2.remove();
+                removable.add(c);
+
+            }
 
         }
 
-        // #3 parse aliveCells and newAliveCells -> new lists: toRemove, aliveCells = newAliveCells
-
-        Main.aliveCells.forEach((c) -> {
-
-           if (!reference.contains(c))
-               removable.add(c);
-
-        });
+        //Bukkit.broadcastMessage("Amount of elements left in reference list is: " + reference.size());
+        //Bukkit.broadcastMessage("Amount of removables: " + removable.size());
 
     }
 
     public static void update() {
 
-        Main.aliveCells = reference;
+        Main.aliveCells.clear();
+        Main.aliveCells.addAll(reference);
 
         Iterator<Location> i1 = reference.iterator(),
                 i2 = removable.iterator();
@@ -83,6 +80,8 @@ public class TwoDimensional {
             i2.remove();
 
         }
+
+        //Bukkit.broadcastMessage("Number of new cells: " + Main.aliveCells.size());
 
     }
 
