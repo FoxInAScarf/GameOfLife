@@ -13,7 +13,6 @@ public class Listeners implements Listener {
     public void cellAddition(BlockPlaceEvent e) {
 
         if (e.getBlock().getType().equals(Material.REDSTONE_BLOCK) &&
-                e.getBlock().getLocation().getY() == Main.y &&
                 !Main.aliveCells.contains(e.getBlock().getLocation())) {
 
             Main.aliveCells.add(e.getBlock().getLocation());
@@ -27,7 +26,6 @@ public class Listeners implements Listener {
     public void cellRemoval(BlockBreakEvent e) {
 
         if (e.getBlock().getType().equals(Material.REDSTONE_BLOCK) &&
-                e.getBlock().getLocation().getY() == Main.y &&
                 Main.aliveCells.contains(e.getBlock().getLocation())) {
 
             Main.aliveCells.remove(Main.aliveCells.indexOf(e.getBlock().getLocation()));

@@ -1,6 +1,5 @@
 package com.golim.veo;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,10 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 public class GameOfLife implements CommandExecutor {
 
@@ -129,12 +124,27 @@ public class GameOfLife implements CommandExecutor {
                 }
                 break;
 
+            case "loader":
+
+
+
+                break;
+
             case "toggle":
 
                 if (Main.running) Main.running = false;
                 else Main.running = true;
 
                 sender.sendMessage(Main.running ? ChatColor.DARK_GREEN + "Game of Life has been turned on!" : ChatColor.DARK_RED + "Game of Life has been turned off!");
+                break;
+
+            case "toggleDimension":
+
+                if (Main.threeD) Main.threeD = false;
+                else Main.threeD = true;
+
+                sender.sendMessage(ChatColor.AQUA + "The dimension in which the simulation is going to run has changed to "
+                        + ChatColor.BOLD + (Main.threeD ? "3 DIMENSIONAL" : "2 DIMENSIONAL") + ChatColor.RESET + ChatColor.AQUA + "!");
                 break;
 
             /*case "test":
@@ -166,7 +176,9 @@ public class GameOfLife implements CommandExecutor {
 
     private static void clear() {
 
-
+        for (Location c : Main.aliveCells)
+            c.getBlock().setType(Material.AIR);
+        Main.aliveCells.clear();
 
     }
 

@@ -1,0 +1,10 @@
+# time-rate is measured in seconds and is in instance of a double
+time-rate: 0.5
+
+# y level on which the 2D GameOfLife should run
+y: 1
+
+# loadable reference files that can be loaded into GOL, must end with .zgol, link directory please
+loadables:
+  glider: 'glider.zgol'
+  gliderGun: 'gliderGun.zgol'
