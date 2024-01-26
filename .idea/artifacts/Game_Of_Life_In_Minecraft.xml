@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Game Of Life In Minecraft">
-    <output-path>$PROJECT_DIR$/../../Server/Minecraft/1.16.5/plugins</output-path>
-    <root id="archive" name="Game Of Life In Minecraft.jar">
-      <element id="module-output" name="Game Of Life In Minecraft" />
-    </root>
-  </artifact>
-</component>
